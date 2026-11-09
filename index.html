@@ -67,10 +67,9 @@ a{color:inherit;text-decoration:none}
 
 /* SERVICES */
 .services{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
-.service{background:linear-gradient(180deg, var(--card) 0%, #1e1e1e 100%);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px;transition:.25s;position:relative;overflow:hidden}
+.service{background:linear-gradient(180deg, var(--card) 0%, #1e1e1e 100%);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px;transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s ease,border-color .5s ease;position:relative;overflow:hidden;transform-origin:center}
 .service::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg, transparent, rgba(228,211,191,0.18), transparent)}
-.service:hover{transform:translateY(-3px);border-color:rgba(228,211,191,0.18);box-shadow:0 16px 40px rgba(0,0,0,0.4)}
-.service img{width:100%;height:148px;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,0.06)}
+.service img{width:100%;height:148px;object-fit:cover;border-radius:12px;border:1px solid rgba(255,255,255,0.06);transition:transform .7s cubic-bezier(.2,.8,.2,1);transform:scale(1)}
 .service h3{font-size:13.5px;color:var(--text)} .service p{font-size:12.5px;color:var(--muted);line-height:1.5}
 .service .price{margin-top:auto;font-size:10px;font-weight:800;letter-spacing:0.08em;color:var(--black);background:var(--beige);padding:6px 10px;border-radius:999px;align-self:flex-start}
 .service-featured{background:radial-gradient(400px 200px at 80% 0%, rgba(228,211,191,0.12), transparent 60%), linear-gradient(180deg, #1e1e1e 0%, #141414 100%);border-color:rgba(228,211,191,0.14)}
@@ -130,35 +129,43 @@ a{color:inherit;text-decoration:none}
 @keyframes fadeDown{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
 @keyframes scaleIn{from{opacity:0;transform:scale(0.97)}to{opacity:1;transform:scale(1)}}
 @keyframes blurIn{from{opacity:0;filter:blur(6px)}to{opacity:1;filter:blur(0)}}
-.header{animation:fadeDown .7s cubic-bezier(.16,1,.3,1) both}
-.hero > div:first-child .badge{opacity:0;animation:fadeUp .7s cubic-bezier(.16,1,.3,1) .15s both}
-.hero h1{opacity:0;animation:blurIn .9s cubic-bezier(.16,1,.3,1) .25s both}
-.hero > div:first-child > p{opacity:0;animation:fadeUp .7s cubic-bezier(.16,1,.3,1) .35s both}
-.hero-actions{opacity:0;animation:fadeUp .7s cubic-bezier(.16,1,.3,1) .45s both}
-.trust{opacity:0;animation:fadeUp .7s cubic-bezier(.16,1,.3,1) .55s both}
-.stats{opacity:0;animation:fadeUp .7s cubic-bezier(.16,1,.3,1) .62s both}
-.hero-visual{opacity:0;animation:scaleIn .9s cubic-bezier(.16,1,.3,1) .3s both}
-.hero-card{opacity:0;animation:fadeUp .6s cubic-bezier(.16,1,.3,1) .85s both}
+.header{animation:fadeDown .9s cubic-bezier(.16,1,.3,1) both}
+.hero > div:first-child .badge{opacity:0;animation:fadeUp 1s cubic-bezier(.16,1,.3,1) .25s both}
+.hero h1{opacity:0;animation:blurIn 1.2s cubic-bezier(.16,1,.3,1) .45s both}
+.hero > div:first-child > p{opacity:0;animation:fadeUp 1s cubic-bezier(.16,1,.3,1) .65s both}
+.hero-actions{opacity:0;animation:fadeUp 1s cubic-bezier(.16,1,.3,1) .85s both}
+.trust{opacity:0;animation:fadeUp 1s cubic-bezier(.16,1,.3,1) 1s both}
+.stats{opacity:0;animation:fadeUp 1s cubic-bezier(.16,1,.3,1) 1.1s both}
+.hero-visual{opacity:0;animation:scaleIn 1.3s cubic-bezier(.16,1,.3,1) .55s both}
+.hero-card{opacity:0;animation:fadeUp .9s cubic-bezier(.16,1,.3,1) 1.25s both}
 
 /* scroll reveal */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .65s cubic-bezier(.16,1,.3,1), transform .65s cubic-bezier(.16,1,.3,1)}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1)}
 .reveal.in{opacity:1;transform:none}
-.reveal.delay1{transition-delay:.07s}
-.reveal.delay2{transition-delay:.14s}
-.reveal.delay3{transition-delay:.21s}
-.reveal.delay4{transition-delay:.08s}
-.stagger > *{opacity:0;transform:translateY(16px);transition:opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1)}
+.reveal.delay1{transition-delay:.12s}
+.reveal.delay2{transition-delay:.24s}
+.reveal.delay3{transition-delay:.36s}
+.reveal.delay4{transition-delay:.14s}
+.stagger > *{opacity:0;transform:translateY(16px);transition:opacity 1s cubic-bezier(.16,1,.3,1), transform 1s cubic-bezier(.16,1,.3,1)}
 .stagger.in > *{opacity:1;transform:none}
-.stagger.in > *:nth-child(1){transition-delay:.05s}
-.stagger.in > *:nth-child(2){transition-delay:.12s}
-.stagger.in > *:nth-child(3){transition-delay:.19s}
-.stagger.in > *:nth-child(4){transition-delay:.26s}
-.stagger.in > *:nth-child(5){transition-delay:.08s}
-.stagger.in > *:nth-child(6){transition-delay:.15s}
-.stagger.in > *:nth-child(7){transition-delay:.22s}
-.stagger.in > *:nth-child(8){transition-delay:.29s}
+.stagger.in > *:nth-child(1){transition-delay:.08s}
+.stagger.in > *:nth-child(2){transition-delay:.18s}
+.stagger.in > *:nth-child(3){transition-delay:.28s}
+.stagger.in > *:nth-child(4){transition-delay:.38s}
+.stagger.in > *:nth-child(5){transition-delay:.14s}
+.stagger.in > *:nth-child(6){transition-delay:.25s}
+.stagger.in > *:nth-child(7){transition-delay:.35s}
+.stagger.in > *:nth-child(8){transition-delay:.45s}
+
+/* Slow, gentle entrance and hover zoom for service tiles */
+@media (hover:hover) and (pointer:fine){
+  .services .service:hover{transform:translateY(-4px) scale(1.025);z-index:3;border-color:rgba(228,211,191,0.28);box-shadow:0 18px 46px rgba(0,0,0,0.48)}
+  .services .service:hover img{transform:scale(1.045)}
+}
 
 @media(prefers-reduced-motion:reduce){
+  .service,.service img{transition:none!important;transform:none!important}
+
   .header,.hero > div:first-child .badge,.hero h1,.hero > div:first-child > p,.hero-actions,.trust,.stats,.hero-visual,.hero-card,
   .reveal,.stagger > *{animation:none!important;transition:none!important;opacity:1!important;transform:none!important;filter:none!important}
 }
@@ -192,7 +199,7 @@ a{color:inherit;text-decoration:none}
 <section class="container hero">
   <div>
     <span class="badge">✦ Своё производство • 3+ года • 300+ проектов</span>
-    <h1>Мебель на заказ, <span>которая решает ваши задачи</span></h1>
+    <h1><span>Чистый дизайн.<br>Абсолютный комфорт.</span></h1>
     <p>Кухни, шкафы, гардеробные, перегородки, прихожие — от лаконичных до премиум. Делаем по вашим размерам до миллиметра. Замер и 3D-проект — бесплатно.</p>
     <div class="hero-actions">
       <a href="#lead" class="btn btn-dark">Рассчитать стоимость →</a>
@@ -214,7 +221,7 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
   <div class="hero-visual">
-    <img src="assets/kitchen.jpg" alt="Кухня Demidov Furniture">
+    <img src="assets/wardrobe.jpg" alt="Шкаф Demidov Furniture">
     <div class="hero-card">
       <img src="assets/logo_transparent.png" alt="" style="background:#e4d3bf">
       <div>
