@@ -382,8 +382,6 @@ if(phoneInput) phoneInput.addEventListener('input',e=>{
   let f='+7'; if(v.length>1) f+=' ('+v.slice(1,4); if(v.length>=5) f+=') '+v.slice(4,7); if(v.length>=8) f+='-'+v.slice(7,9); if(v.length>=10) f+='-'+v.slice(9,11);
   e.target.value=f;
 });
-const BOT_TOKEN="8759403736:AAHjfE96uu0bJ_J6f4UKPggM5UNN84aTf_E";
-let CHAT_ID="-1004468770549";
 const form=document.getElementById('leadForm'), success=document.getElementById('success'), errorEl=document.getElementById('error'), btn=document.getElementById('submitBtn');
 form.addEventListener('submit', async (e)=>{
   e.preventDefault();
@@ -391,17 +389,14 @@ form.addEventListener('submit', async (e)=>{
   const payload={name:d.get('name').trim(),phone:d.get('phone').trim(),product:d.get('product'),wishes:d.get('wishes').trim()||'—',contact:d.get('contact'),time:new Date().toLocaleString('ru-RU',{timeZone:'Asia/Krasnoyarsk'}),page:location.href.replace('xn--90abfaecbt6addw2q.xn--p1ai','демидовмебель.рф').replace('www.xn--90abfaecbt6addw2q.xn--p1ai','демидовмебель.рф').replace('http://','https://')};
   if(!payload.name||!payload.phone){alert('Заполните имя и телефон');return;}
   btn.disabled=true;btn.textContent='Отправляю...';success.style.display='none';errorEl.style.display='none';
-  const text=`🔥 Новая заявка с сайта Demidov Furniture\n\n👤 Имя: ${payload.name}\n📞 Телефон: ${payload.phone}\n🛋️ Что нужно: ${payload.product}\n💬 Пожелания: ${payload.wishes}\n📲 Связь: ${payload.contact}\n🕒 Время: ${payload.time}\n🌐 Страница: ${payload.page}\n\n#заявка`;
   try{
-    try{
-      const r=await fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-      if(r.ok){const j=await r.json(); if(j.ok) throw new Error('server ok');}
-    }catch(_){}
-    const tg=await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:CHAT_ID,text})});
-    const j=await tg.json();
-    if(j.ok){success.style.display='block';form.reset();} else {errorEl.style.display='block';}
+    const r=await fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    const j=await r.json().catch(()=>({}));
+    if(!r.ok||!j.ok) throw new Error(j.error||`HTTP ${r.status}`);
+    success.style.display='block';form.reset();
   }catch(err){
-    if(err.message==='server ok'){success.style.display='block';form.reset();} else errorEl.style.display='block';
+    console.error('Lead submission failed:',err);
+    errorEl.style.display='block';
   }finally{btn.disabled=false;btn.textContent='Отправить заявку →';}
 });
 </script>
