@@ -104,6 +104,12 @@ a{color:inherit;text-decoration:none}
 .contacts p{font-size:13px;color:#4a3f36;margin-bottom:6px}
 .contacts a.tel{font-size:20px;font-weight:800;color:var(--black)}
 .footer{padding:24px 0;border-top:1px solid rgba(255,255,255,0.06);font-size:12px;color:var(--muted2);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+/* COOKIE NOTICE */
+.cookie-notice{position:fixed;left:50%;bottom:20px;transform:translate(-50%,160%);width:min(640px,calc(100% - 28px));background:rgba(20,20,20,0.92);backdrop-filter:blur(18px);border:1px solid rgba(228,211,191,0.18);border-radius:20px;padding:16px;box-shadow:0 24px 70px rgba(0,0,0,0.55);z-index:90;opacity:0;transition:transform 1s cubic-bezier(.16,1,.3,1),opacity 1s ease}
+.cookie-notice.show{transform:translate(-50%,0);opacity:1}
+.cookie-notice p{font-size:13.5px;color:var(--muted);line-height:1.6}
+.cookie-notice .btn{margin-top:12px}
+@media(max-width:560px){.cookie-notice{bottom:14px;padding:14px}}
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.92);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
 .lightbox img{max-width:94vw;max-height:90vh;border-radius:12px}
 @media(max-width:980px){
@@ -343,6 +349,11 @@ a{color:inherit;text-decoration:none}
   <div><a href="https://t.me/Demidov_Furniture">Telegram</a> • <a href="https://vk.com/demidov_furniture">VK</a></div>
 </footer>
 
+<div class="cookie-notice" id="cookieNotice" role="dialog" aria-live="polite">
+  <p><b>Файлы cookie и ваши данные.</b> Мы сохраняем локальное согласие в вашем браузере. При отправке заявки имя, телефон и пожелания передаются в Telegram для обработки вашего запроса. Нажмите «Принять», чтобы продолжить.</p>
+  <button class="btn btn-dark" id="acceptCookies">Принять</button>
+</div>
+
 <div class="lightbox" id="lightbox"><img src="" alt=""></div>
 <canvas id="particles"></canvas>
 <script>
@@ -369,6 +380,20 @@ function tick(){
   requestAnimationFrame(tick);
 }
 tick();
+// Cookie notice — одноразовое сообщение о согласии
+const cookieNotice=document.getElementById('cookieNotice');
+const COOKIE_KEY='df_cookie_consent';
+if(cookieNotice){
+  const accepted=()=>{try{return localStorage.getItem(COOKIE_KEY)==='accepted';}catch(e){return false}};
+  const acceptNotice=()=>{
+    try{localStorage.setItem(COOKIE_KEY,'accepted');}catch(e){}
+    cookieNotice.classList.remove('show');
+    document.getElementById('acceptCookies').blur();
+  };
+  const showNotice=()=>{if(!accepted()) cookieNotice.classList.add('show');};
+  setTimeout(showNotice,1400);
+  document.getElementById('acceptCookies').addEventListener('click',acceptNotice);
+}
 // Scroll reveal — плавное появление при скролле
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
